@@ -6,11 +6,12 @@ import Html.Attributes          exposing (..)
 import EchoBack.Session         exposing (Session, HomeSt)
 
 
-type Msg = ChangeTxt String
 
+type Msg = ChangeTxt String
 type alias Model = { session : Session
                    , txt     : HomeSt
                    }
+
 
 
 init : Session -> ( Model, Cmd Msg )
@@ -24,9 +25,11 @@ init ss =
         ( { session=ss, txt=initTxt }, Cmd.none )
 
 
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg mdl = case msg of
     ChangeTxt a -> (Model mdl.session a, Cmd.none)
+
 
 
 view : Model -> Html Msg

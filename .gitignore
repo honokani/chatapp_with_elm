@@ -1,2 +1,4 @@
-/node_modules
-/elm-stuff
+/front/node_modules
+/front/elm-stuff
+/dist/
+

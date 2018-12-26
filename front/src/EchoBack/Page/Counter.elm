@@ -14,16 +14,11 @@ type alias Model = { session : Session
 type Msg = Increment
          | Decrement
 
---counterMain : Program Session Model Msg
---counterMain = Brs.element { init   = init
---                          , update = update
---                          , subscriptions = subscriptions
---                          , view   = view
---                          }
 
 
 init : Session -> ( Model, Cmd Msg )
 init ss = ( Model ss <| Maybe.withDefault 0 ss.stCounter, Cmd.none )
+
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -38,8 +33,10 @@ update msg mdl =
         (newMdl , Cmd.none)
 
 
+
 subscriptions : Model -> Sub Msg
 subscriptions _ = Sub.none
+
 
 
 view : Model -> Html Msg

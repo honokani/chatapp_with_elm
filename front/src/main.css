@@ -9,7 +9,7 @@ html, body {
 }
 
 header {
-  height: 90px;
+  height: 112px;
   background-color: #222;
   color: white;
   padding: 8px;
@@ -36,7 +36,7 @@ footer {
 }
 
 .page {
-  height: calc(100vh - 150px - 30px - 16px);
+  height: calc(100vh - 112px - 30px - 16px);
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -44,14 +44,15 @@ footer {
 
 .index {
   background-color: #666;
-  width: 16vw;
+  width: 12vw;
   color: white;
 }
 
 .content {
   background-color: #333;
   height: 100%;
-  width: 84vw;
+  width: calc(100vw - 12vw);
+  overflow: auto;
 }
 
 .counter {
@@ -80,18 +81,11 @@ footer {
   color: white;
 }
 
-
-.inputarea {
-  width: auto;
-  display: flex;
-  flex-direction: row;
-  padding: 16px;
-}
-
 .inputtext {
   height: 60;
-  width: 100%;
-  resize: none;
+  width: 99%;
+  margin: auto;
+  font-size: 50px;
 }
 
 .chatlog {
@@ -102,7 +96,7 @@ footer {
   overflow: hidden;
   width: 86%;
   float: right;
-  margin: 30px;
+  margin: 20px;
   background-color: white;
   border: 1px solid #aaa;
   border-radius: 24px;
@@ -113,7 +107,8 @@ footer {
 .baloonU {
   overflow: hidden;
   width: 86%;
-  margin: 30px;
+  float: left;
+  margin: 20px;
   background-color: white;
   border: 1px solid #aaa;
   border-radius: 24px;
@@ -124,7 +119,7 @@ footer {
 .isay {
   overflow: hidden;
   padding-top:10;
-  margin: 20px;
+  margin: 16px;
   margin-right: 40px;
   text-align: right;
 }
@@ -132,7 +127,7 @@ footer {
 .usay {
   overflow: hidden;
   padding-top:10;
-  margin: 20px;
+  margin: 16px;
   margin-left: 40px;
   text-align: left;
 }

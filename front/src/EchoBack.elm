@@ -2,13 +2,13 @@ module EchoBack exposing (Model, Msg, program)
 -- common modules
 import Browser               as Brs
 import Browser.Navigation    as Nav
-import Html                          exposing (..)
-import Html.Attributes               exposing (..)
-import Url                           exposing (Url)
+import Html                           exposing (..)
+import Html.Attributes                exposing (..)
+import Url                            exposing (Url)
 -- my modules
-import EchoBack.Flags                exposing (Flags)
-import EchoBack.Route        as R    exposing (..)
-import EchoBack.Session              exposing (Session, UsrCtrl(..), navKey, getInitialSession)
+import EchoBack.Flags                 exposing (Flags)
+import EchoBack.Route        as R     exposing (..)
+import EchoBack.Session               exposing (Session, UsrCtrl(..), navKey, getInitialSession)
 import EchoBack.Page.Home    as PHome exposing (Msg, Model, init, update, view)
 import EchoBack.Page.Counter as PCntr exposing (Msg, Model, init, update, view)
 import EchoBack.Page.Chat    as PChat exposing (Msg, Model, init, update, view)
@@ -38,12 +38,14 @@ program = Brs.application { init = init
                           }
 
 
+
 init : Flags -> Url -> Nav.Key -> (Model, Cmd Msg)
 init _ u k =
     let
         (subMdl, subMsg) = PHome.init (getInitialSession k)
     in
         (MdlHome subMdl, Cmd.map MsgHome subMsg)
+
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -59,13 +61,13 @@ update msg mdl = case msg of
         updateInternalPage url mdl
     MsgHome  subMsg -> case mdl of
         MdlHome subMdl -> updateWithSub MdlHome MsgHome (PHome.update subMsg subMdl)
-        _             -> ( mdl, Cmd.none )
+        _              -> ( mdl, Cmd.none )
     MsgCntr subMsg -> case mdl of
         MdlCntr subMdl -> updateWithSub MdlCntr MsgCntr (PCntr.update subMsg subMdl)
-        _             -> ( mdl, Cmd.none )
+        _              -> ( mdl, Cmd.none )
     MsgChat  subMsg -> case mdl of
         MdlChat subMdl -> updateWithSub MdlChat MsgChat (PChat.update subMsg subMdl)
-        _             -> ( mdl, Cmd.none )
+        _              -> ( mdl, Cmd.none )
 
 
 getSession : Model -> Session
@@ -101,13 +103,11 @@ changeUrl cmds (mdl, cmd) = (mdl, Cmd.batch <| cmd :: cmds)
 
 
 
-
 subscriptions : Model -> Sub Msg
 subscriptions mdl = case mdl of
     MdlHome subMdl -> Sub.none
     MdlCntr subMdl -> Sub.map MsgCntr (PCntr.subscriptions subMdl)
     MdlChat subMdl -> Sub.map MsgChat (PChat.subscriptions subMdl)
-
 
 
 

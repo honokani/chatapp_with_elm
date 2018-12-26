@@ -4,6 +4,7 @@ import Browser.Navigation as Nav
 -- my modules
 import EchoBack.Page.Chat.ChatInfo exposing (..)
 
+
 type alias Usr = String
 type UsrCtrl = SS  Nav.Key Usr
              | GSS Nav.Key
@@ -17,6 +18,7 @@ type alias Session = { uCtrl     : UsrCtrl
                      , stCounter : Maybe CounterSt
                      , stChat    : Maybe ChatSt
                      }
+
 
 getInitialSession : Nav.Key -> Session
 getInitialSession k = Session (GSS k) Nothing Nothing Nothing
