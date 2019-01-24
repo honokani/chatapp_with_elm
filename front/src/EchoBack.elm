@@ -114,30 +114,65 @@ subscriptions mdl = case mdl of
 view : Model -> Brs.Document Msg
 view mdl =
     let
-        content = case mdl of
+        skelton  = case mdl of
             MdlHome subMdl -> Html.map MsgHome <| PHome.view subMdl
             MdlCntr subMdl -> Html.map MsgCntr <| PCntr.view subMdl
             MdlChat subMdl -> Html.map MsgChat <| PChat.view subMdl
     in
         { title = "Echo back"
-        , body  = [make_body content]
+        , body  = [make_body skelton]
         }
 
 
 make_body : Html Msg -> Html Msg
-make_body con = div [ class "root" ]
-                    [ header [] [ h1 [] [ link "/" "EchoBack" ] ]
-                    , div [ class "page" ]
-                          [ div [ class "index" ] [ p [] [ link ""         "Home" ]
-                                                  , p [] [ link "#counter" "Counter" ]
-                                                  , p [] [ link "#chat"    "Chat" ]
-                                                  ]
-                          , div [ class "content" ] [con]
-                          ]
-                    , footer [] [ text "test for chatbot app!" ]
+make_body con =
+    let
+        head_html = [ h1 [] [ link "/" "EchoBack" ] ]
+        foot_html = [ text "test for chatbot app!" ]
+        navi_html = [ p [] [ link ""         "Home" ]
+                    , p [] [ link "#counter" "Counter" ]
+                    , p [] [ link "#chat"    "Chat" ]
                     ]
-
+    in
+        div [ class "root" ]
+            [ bootFluid header <| Anone head_html
+            , bootFluid div    <| Named ["page"]
+                                    <| bootGrid [ ( 1, Named ["navi"] navi_html)
+                                                , (11, Named ["content"] [con])
+                                                ]
+            , bootFluid footer <| Anone foot_html
+            ]
 
 link : String -> String -> Html msg
 link url label = a [ href url ] [ text label ]
+
+
+
+type alias Htmls a = List (Html a)
+type BootStrapHtmlSet msg = Anone               (Htmls msg)
+                          | Named (List String) (Htmls msg)
+
+bootFluid : (List (Attribute msg) -> Htmls msg -> Html msg) -> BootStrapHtmlSet msg -> Html msg
+bootFluid tag e = case e of
+    Anone    hs -> tag [class "container-fluid"] hs
+    Named ns hs -> tag [class <| packName ns ++ "container-fluid"] hs
+
+packName : List String -> String
+packName ns = List.foldr (\x acc -> acc ++ x ++ " ") "" ns
+
+type alias BootStrapGrid msg = (Int, BootStrapHtmlSet msg)
+
+bootGrid : List (BootStrapGrid msg) -> List (Html msg)
+bootGrid elems =
+    let
+        bootCols : List (BootStrapGrid msg) -> List (Html msg)
+        bootCols = List.map bootCol
+        bootCol : (BootStrapGrid msg) -> Html msg
+        bootCol (i, e) = case e of
+            Anone    hs -> div [class <| "col-" ++ String.fromInt i] hs
+            Named ns hs -> div [class <| packName ns ++ "col-" ++ String.fromInt i] hs
+    in
+        [div [class "row h-100"] <| bootCols elems]
+
+bootNavV elem = nav [class "flex-column nav-pills"] elem
 

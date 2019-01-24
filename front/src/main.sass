@@ -1,0 +1,37 @@
+$h_pv: 100vh
+$w_pv: 100vw
+$h_header: 112px
+$h_footer: 30px
+$h_page: 120vw
+
+$col_black: black
+$col_gray_heavy: #333
+$col_gray: #777
+$col_gray_light: #AAA
+$col_white: white
+
+
+.root
+  margin: 0
+  padding: 0
+  header
+    height: $h_header
+    background-color: $col_gray_light
+  footer
+    height: $h_footer
+    background-color: $col_gray_light
+  .page
+    height: calc(#{$h_pv} - #{$h_header} - #{$h_footer})
+    background-color: $col_white
+    .navi
+      background-color: $col_gray_heavy
+    .chat
+      background-color: $col_gray_heavy
+      h1
+        color: black
+      .inputtext
+        .inputtextcore
+          font-size: 5rem
+
+@import "~bootstrap/scss/bootstrap.scss" 
+

@@ -19,6 +19,9 @@ module.exports =
         , exclude: [/elm-stuff/, /node_modules/]
         , loader:  ["elm-webpack-loader"]
         }
+      , { test:    /\.sass$/,
+          use:     ['style-loader', 'css-loader', 'sass-loader']
+        }
       , { test:    /\.(eot|gif|ico|jpg|jpeg|otf|png|svg|ttf|woff|woff2)$/
         , loader:  'url-loader?name=[name].[ext]'
         }

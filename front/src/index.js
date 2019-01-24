@@ -1,5 +1,7 @@
+import 'bootstrap'
 require('./index.html');
-require('./main.css');
+require('./main.sass');
+//require('./main.css');
 //require('./favicon.ico');
 
 const { Elm } = require("./Main.elm");
