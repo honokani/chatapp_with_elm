@@ -1,7 +1,7 @@
 module Main exposing (main)
 -- my modules
-import EchoBack exposing (Model, Msg, program)
+import EchoBack exposing (M, Msg, program)
 
-main : Program () Model Msg
+main : Program () M Msg
 main = program
 

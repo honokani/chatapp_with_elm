@@ -1,8 +1,6 @@
 const path = require('path');
-
 const src_path  = path.join(__dirname, 'src');
 const dist_path = path.join(__dirname, 'dist');
-
 module.exports =
   { entry: path.join(src_path, 'index.js')
   , mode:  "development"

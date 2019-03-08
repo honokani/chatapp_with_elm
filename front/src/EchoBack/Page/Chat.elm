@@ -5,14 +5,10 @@ import Html.Attributes             exposing (..)
 import Html.Events                 exposing (onClick, onSubmit, onInput)
 import Http                        exposing (..)
 -- my modules
-import EchoBack.Session            exposing (Session, CounterSt)
+import EchoBack.Session            exposing (Session)
+import EchoBack.Page.Chat.Model    exposing (..)
 import EchoBack.Page.Chat.ChatInfo exposing (..)
 
-
-type alias Model = { session   : Session
-                   , inputText : String
-                   , chatLog   : List ChatInfo
-                   }
 
 type Msg = ChangeText String
          | PostText

@@ -4,12 +4,9 @@ import Html                    exposing (..)
 import Html.Attributes         exposing (..)
 import Html.Events             exposing (onClick)
 -- my modules
-import EchoBack.Session        exposing (Session, CounterSt)
+import EchoBack.Session        exposing (Session)
+import EchoBack.Page.Counter.Model    exposing (..)
 
-
-type alias Model = { session : Session
-                   , count   : CounterSt
-                   }
 
 type Msg = Increment
          | Decrement

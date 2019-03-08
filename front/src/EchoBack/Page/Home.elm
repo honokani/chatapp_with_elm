@@ -3,15 +3,11 @@ module EchoBack.Page.Home exposing (..)
 import Html                     exposing (..)
 import Html.Attributes          exposing (..)
 -- my modules
-import EchoBack.Session         exposing (Session, HomeSt)
-
+import EchoBack.Session         exposing (Session)
+import EchoBack.Page.Home.Model exposing (..)
 
 
 type Msg = ChangeTxt String
-type alias Model = { session : Session
-                   , txt     : HomeSt
-                   }
-
 
 
 init : Session -> ( Model, Cmd Msg )
