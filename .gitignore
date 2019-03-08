@@ -1,4 +1,5 @@
 /front/node_modules
 /front/elm-stuff
+/front/src/firebase_config.js
 /dist/
 
