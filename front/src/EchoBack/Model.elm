@@ -8,5 +8,4 @@ import EchoBack.Page.Counter.Model as Cntr exposing (..)
 type Model = MdlHome Home.Model
            | MdlCntr Cntr.Model
            | MdlChat Chat.Model
---           | MdlAuth Model
 

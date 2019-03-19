@@ -1,11 +1,11 @@
 module EchoBack.Page.Counter exposing (..)
 -- common modules
-import Html                    exposing (..)
-import Html.Attributes         exposing (..)
-import Html.Events             exposing (onClick)
+import Html                        exposing (..)
+import Html.Attributes             exposing (..)
+import Html.Events                 exposing (onClick)
 -- my modules
-import EchoBack.Session        exposing (Session)
-import EchoBack.Page.Counter.Model    exposing (..)
+import EchoBack.Session            exposing (Session)
+import EchoBack.Page.Counter.Model exposing (..)
 
 
 type Msg = Increment

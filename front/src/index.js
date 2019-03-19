@@ -1,6 +1,7 @@
 require('./index.html');
-require('./main.css');
+require('./main.sass');
 import * as firebase from 'firebase';
+
 
 // Elm
 const { Elm } = require("./Main.elm")
@@ -8,11 +9,16 @@ const elmnode = document.getElementById('elmapp')
 const app     = Elm.Main.init( { node:elmnode
                                }
                              )
+//document.getElementByClassName("chatlog_o").contentWindow.scrollBy(0,100);
+//投稿のたびにスクロールしたい
+
 
 // Firebase
 const get_fbconf = require('./firebase_config.js')
 firebase.initializeApp(get_fbconf())
 const provider = new firebase.auth.GoogleAuthProvider()
+
+
 
 // Elm -> Firebase
 app.ports.signIn.subscribe( _ => {
@@ -22,6 +28,7 @@ app.ports.signIn.subscribe( _ => {
 app.ports.signOut.subscribe( _ => {
     firebase.auth().signOut().then(() => { console.log("Signed out.") })
 })
+
 
 
 // Firebase -> Elm

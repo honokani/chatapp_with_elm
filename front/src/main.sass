@@ -1,0 +1,175 @@
+//@import "~bootstrap/scss/bootstrap"
+* { margin: 0; padding: 0; }
+
+$icon_sz: 48px
+$gap: 10px
+
+$h_head: 60px
+$h_foot: 24px
+$h_container: calc(100vh - #{$h_head} - #{$h_foot})
+$h_subtitle: 60px
+$h_textarea: 60px
+$h_icon: $icon_sz
+
+$w_head: 100vw
+$w_sign_io: 64px
+$w_humberger: 32px
+$w_nav: 90px
+$w_container: calc(100vw - #{$w_nav})
+$w_chatlog: calc(#{$w_container} + 17px)
+$w_icon_half: calc(#{$icon_sz} / 2)
+
+$w_mobile_boader: 400px
+
+
+@mixin locateCenter($v: flex, $p: center)
+  display: $v
+  align-items: $p
+
+@mixin locateCenter_visibleAtMobile($v: flex, $p:center)
+  display: none
+  @media screen and (max-width: $w_mobile_boader)
+    @include locateCenter($v,$p)
+
+@mixin locateCenter_hideAtMobile($v: flex, $p:center)
+  @include locateCenter($v,$p)
+  @media screen and (max-width: $w_mobile_boader)
+    display: none
+
+@mixin mobaSwitchGrid_C($pc:1fr,$mb:1fr)
+  display: grid
+  grid-template-columns: $pc
+  @media screen and (max-width: $w_mobile_boader)
+    grid-template-columns: $mb
+
+@mixin mobaSwitchGrid_R($pc:1fr,$mb:1fr)
+  display: grid
+  grid-template-rows: $pc
+  @media screen and (max-width: $w_mobile_boader)
+    grid-template-rows: $mb
+
+@mixin mobaHide($d: normal)
+  display: $d
+  @media screen and (max-width: $w_mobile_boader)
+    display: none
+
+
+.root
+  height: 100vh
+
+  .mobaVisibleFlex_Center
+    @include locateCenter_visibleAtMobile($v:flex, $p:center)
+
+  display: grid
+  grid-template-rows: $h_head 1fr $h_foot
+  overflow: hidden
+
+  header
+    display: grid
+    grid-template-columns: 1fr $w_sign_io $w_humberger
+    background-color: #222
+    color: white
+    .page_title
+      h1 > a
+        font-size: 32px
+        font-weight: bold
+      @include locateCenter()
+    .sign_io
+      color: white
+      @include locateCenter()
+    .humberger
+      @extend .mobaVisibleFlex_Center
+      color: white
+
+  footer
+    background-color: #222
+    color: white
+    @include locateCenter()
+
+  .container
+    display: grid
+    @include mobaSwitchGrid_C($pc:$w_nav 1fr, $mb:1fr)
+    nav
+      background-color: gray
+      @include mobaSwitchGrid_R($pc:30px 30px 30px, $mb:1fr)
+      @include mobaHide($d:gird)
+      .id_mem
+        height: 30px
+        @include locateCenter()
+    .page
+      .chat
+        height: $h_container
+        width: $w_container
+        display: grid
+        grid-template-rows: $h_subtitle 1fr $h_textarea
+
+        @mixin baloon()
+          height: $h_icon
+          width: $w_container
+          display: grid
+          grid-template-columns: $gap $icon_sz $gap $w_icon_half 1fr $w_icon_half $gap $icon_sz $gap
+        @mixin say($se:1 / 5)
+          grid-column: $se
+          border: 1px solid #aaa
+          border-radius: 24px
+          display: flex
+          align-items: center
+          display: grid
+          grid-template-columns: $icon_sz 1fr $icon_sz
+
+        .subtitle
+          font-size: 50px
+        .chatlog_o
+          width: calc( #{$w_chatlog} )
+          .baloonGap
+          overflow-x: hidden
+          overflow-y: scroll
+        .chatlog_i
+          overflow: hidden
+          width: calc( #{$w_chatlog} - 17px )
+          .gap
+            height: $gap
+          .Isay
+            @include baloon
+            .baloon_i
+              @include say( $se:5 / span 2 )
+              border-top-right-radius: 12px
+              border-bottom-right-radius: 40px
+              .res
+                grid-column: 2
+                text-align: right
+                .comment
+                  font-size: 16px
+                .c_time
+                  font-size: 9px
+            .icon
+              grid-column: 8
+              background-color: green
+              border-radius: 50%
+          .Usay
+            @include baloon
+            .baloon_u
+              @include say( $se:4 / span 2 )
+              border-top-left-radius: 12px
+              border-bottom-left-radius: 40px
+              .res
+                grid-column: 2
+                .comment
+                  font-size: 16px
+                .c_time
+                  font-size: 9px
+            .icon
+              grid-row: 1
+              grid-column: 2
+              background-color: blue
+              border-radius: 50%
+              
+
+        .inputarea
+          text-align: center
+          width: $w_container
+          .inputtext
+            height: 60
+            width: 96%
+            font-size: 36px
+

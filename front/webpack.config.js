@@ -13,6 +13,9 @@ module.exports =
       , { test:    /\.(css|scss)$/,
           use:     ['style-loader', 'css-loader']
         }
+      , { test:    /\.(sass)$/,
+          use:     ['style-loader', 'css-loader', 'sass-loader']
+        }
       , { test:    /\.elm$/
         , exclude: [/elm-stuff/, /node_modules/]
         , loader:  ["elm-webpack-loader"]

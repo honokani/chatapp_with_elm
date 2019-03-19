@@ -1,8 +1,7 @@
 module EchoBack.Session exposing (..)
 -- common modules
-import Browser.Navigation as Nav
--- my modules
-import EchoBack.Page.Chat.ChatInfo exposing (..)
+import Browser.Navigation        as Nav
+import EchoBack.Page.Chat.Baloon        exposing (..)
 
 
 type alias Usr = String
@@ -11,14 +10,13 @@ type UsrCtrl = SS Nav.Key Usr
 
 type alias HomeSt    = String
 type alias CounterSt = Int
-type alias ChatSt    = List ChatInfo
+type alias ChatSt    = List BaloonInfo
 
 type alias Session = { uCtrl     : UsrCtrl
                      , stHome    : Maybe HomeSt
                      , stCounter : Maybe CounterSt
                      , stChat    : Maybe ChatSt
                      }
-
 
 getInitialSession : Nav.Key -> Session
 getInitialSession k = Session (GS k) Nothing Nothing Nothing
@@ -28,16 +26,29 @@ navKey ss = case ss.uCtrl of
     SS k _ -> k
     GS k   -> k
 
-updateUsrRank mnu uc = case mnu of
+changeUsrRank mayNewUsr uc = case mayNewUsr of
     Nothing -> case uc of
         SS k u -> GS k
         _      -> uc
-    Just nu -> case uc of
-        GS k -> SS k nu
+    Just newUsr -> case uc of
+        GS k -> SS k newUsr
         _    -> uc
 
 getUsr ss = case ss.uCtrl of
-    SS _ u -> Just u
-    _      -> Nothing
+    SS _ u ->
+        Just u
+    _      ->
+        Nothing
 
+login usr ss = case ss.uCtrl of
+    GS k ->
+        { ss | uCtrl = SS k usr }
+    _ ->
+        ss
+
+logout ss = case ss.uCtrl of
+    GS k ->
+        { ss | uCtrl = GS k }
+    SS k _ ->
+        { ss | uCtrl = GS k }
 
